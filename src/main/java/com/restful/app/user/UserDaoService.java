@@ -1,4 +1,4 @@
-package user;
+package com.restful.app.user;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +14,6 @@ public class UserDaoService {
 		users.add(new User(1, "Adam", new Date()));
 		users.add(new User(2, "Nora", new Date()));
 		users.add(new User(3, "Leon ", new Date()));
-
 	}
 	
 	private static int usersCount = 3;
@@ -32,8 +31,18 @@ public class UserDaoService {
 	}
 	
 	public User findUser(int id) {
-		for(User user: users) {
+		for(User user: users) {  //TODO: mejorar iterador
 			if(user.getId()==id) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	public User deleteUser(int id) {
+		for(User user: users) { //TODO: mejorar iterador
+			if(user.getId()==id) {
+				users.remove(id);
 				return user;
 			}
 		}

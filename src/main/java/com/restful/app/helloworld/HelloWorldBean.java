@@ -1,4 +1,4 @@
-package helloworld;
+package com.restful.app.helloworld;
 
 public class HelloWorldBean {
 	

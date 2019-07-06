@@ -1,6 +1,9 @@
-package user;
+package com.restful.app.user;
 
 import java.util.Date;
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 public class User {
 	
@@ -17,9 +20,11 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
 	}
-
+	
+	@Size(min=3, message="User name should be at least 3 characters long")
 	private String name;
 	
+	@Past
 	private Date birthDate;
 
 	public Integer getId() {
