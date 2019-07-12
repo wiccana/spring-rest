@@ -2,23 +2,20 @@ package com.restful.app.user;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+@Entity
 public class User {
 	
-	private Integer id;
+	@Id
+	@GeneratedValue
+	private long id;
 	
-	public User(Integer id, String name, Date birthDate) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.birthDate = birthDate;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
+	protected User() {
 	}
 	
 	@Size(min=3, message="User name should be at least 3 characters long")
@@ -27,11 +24,11 @@ public class User {
 	@Past
 	private Date birthDate;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

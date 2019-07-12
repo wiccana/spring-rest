@@ -2,6 +2,7 @@ package com.restful.app.user;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,28 +21,28 @@ import com.restful.app.exception.CustomException;
 import com.restful.app.exception.CustomExceptionResponse;
 
 @RestController
-public class UserResource {	
+public class UserController {	
 	
 	@Autowired
-	private UserDaoService userService;	
+	private UserRepository userRepository;	
 	
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
-		return userService.findAll();
+		return userRepository.findAll();
 	}
 	
 	@GetMapping("/users/{id}")
-	public User getUser(@PathVariable Integer id) {
-		User user = userService.findUser(id);
+	public Optional<User> getUser(@PathVariable Long id) {
+		Optional<User> user = userRepository.findById(id);
 		if (user==null) {
 			throw new CustomException("id-" + id, HttpStatus.NOT_FOUND);
 		}
-		return userService.findUser(id);
+		return userRepository.findById(id);
 	}
 	
 	@PostMapping("users")
 	public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-		User newUser = userService.save(user);
+		User newUser = userRepository.save(user);
 		if (newUser==null) {
 			throw new CustomException("creation error", HttpStatus.INTERNAL_SERVER_ERROR); //TODO: chequear si conviene usar otro status code 
 		}
@@ -53,11 +54,8 @@ public class UserResource {
 	}
 	
 	@DeleteMapping("users/{id}")
-	public void deleteUser(@PathVariable Integer id) {
-		User user = userService.deleteUser(id);
-		if(user==null) {
-			throw new CustomException("id-" + id, HttpStatus.NOT_FOUND);
-		}
+	public void deleteUser(@PathVariable Long id) {
+		userRepository.deleteById(id);
 	}
 
 }
