@@ -1,7 +1,7 @@
 --DATA FOR USER TABLE
-insert into user (ID, NAME, birth_Date) values (1, 'John Doe', SYSDATE());
-insert into user (ID, NAME, birth_Date) values (2, 'Karl Fiorenzo', SYSDATE());
-insert into user (ID, NAME, birth_Date) values (3, 'Sansa Stark', SYSDATE());
+--insert into user (ID, NAME, USERNAME, PASSWORD, TOKEN, birth_Date) values (1, 'John Doe', 'jdoe','1234', NULL, SYSDATE());
+--insert into user (ID, NAME, USERNAME, PASSWORD, TOKEN, birth_Date) values (2, 'Karl Fiorenzo', 'fiore', '1234', NULL, SYSDATE());
+--insert into user (ID, NAME, USERNAME, PASSWORD, TOKEN, birth_Date) values (3, 'Sansa Stark', 'sansa', '1234', NULL, SYSDATE());
 
 --DATA FOR AUTHOR TABLE
 insert into author (ID, FIRST_NAME, LAST_NAME, BIRTH_DATE, DEATH_DATE, LIKES) values (1, 'George', 'Orwell', SYSDATE(), SYSDATE(), 0);
