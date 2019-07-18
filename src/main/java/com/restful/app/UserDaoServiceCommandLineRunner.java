@@ -24,7 +24,7 @@ public class UserDaoServiceCommandLineRunner implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(UserDaoServiceCommandLineRunner.class);
 	
 	
-	
+	//TODO: just for development
 	@Override
 	public void run(String... args) throws Exception {
 		User user = new User();

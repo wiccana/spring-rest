@@ -1,5 +1,8 @@
 package com.restful.app.security;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.restful.app.user.UserService;
 
@@ -27,23 +31,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Bean
+	public CorsFilter corsFilter() {
+	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    final CorsConfiguration config = new CorsConfiguration();
+	    config.setAllowCredentials(true);
+	    config.setAllowedOrigins(Collections.singletonList("*"));
+	    config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
+	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
+	    source.registerCorsConfiguration("/**", config);
+	    return new CorsFilter(source);
+	}
 
-	@Override
+	@Override  //TODO: uncomment for security
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.cors().and()
-			.csrf().disable()
-			.authorizeRequests().antMatchers(HttpMethod.POST, Constants.LOGIN_URL).permitAll()
-			.anyRequest().authenticated().and()
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+//		httpSecurity
+//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//			.cors().and()
+//			.csrf().disable()
+//			.authorizeRequests().antMatchers(HttpMethod.POST, Constants.LOGIN_URL).permitAll()
+//			.anyRequest().authenticated().and()
+//				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
 	}
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-	}
+	}	
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
