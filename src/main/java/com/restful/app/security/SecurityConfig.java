@@ -46,14 +46,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override  //TODO: uncomment for security
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-//		httpSecurity
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//			.cors().and()
-//			.csrf().disable()
-//			.authorizeRequests().antMatchers(HttpMethod.POST, Constants.LOGIN_URL).permitAll()
-//			.anyRequest().authenticated().and()
-//				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-//				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+		httpSecurity
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.cors().and()
+			.csrf().disable()
+			.authorizeRequests().antMatchers(HttpMethod.POST, Constants.LOGIN_URL).permitAll()
+			.antMatchers("/h2-console/**").permitAll()   //check
+				.anyRequest().authenticated().and()
+				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+				.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+		
+		httpSecurity.headers().frameOptions().disable();   //check
 	}
 
 	@Override
