@@ -1,16 +1,16 @@
 package com.restful.app.like;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 import com.restful.app.book.Book;
-import com.restful.app.user.User;
 
 @Entity
 public class BookLike {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 //	@ManyToOne
 //	private User user;

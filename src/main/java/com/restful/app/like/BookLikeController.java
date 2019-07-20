@@ -61,6 +61,7 @@ public class BookLikeController {
 		if (newBookLike==null) {
 			throw new CustomException("creation error", HttpStatus.INTERNAL_SERVER_ERROR); //TODO: chequear si conviene usar otro status code 
 		}
+		bookLikeRepository.save(newBookLike);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 		.path("/{id}")
 		.buildAndExpand(newBookLike.getId())
